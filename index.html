@@ -61,24 +61,21 @@
 
         .columns {
             display: flex;
-            flex: 1;
-        
+            flex-direction: column; /* Empilhado no celular */
             gap: 15px;
-            margin-top: 50px;
+            margin-top: 20px;
             background-color:#c8e6c9;
             padding:15px;
             border-radius: 10px;
-            height: 100%;
-            max-height: 400px;
+            width: 100%;
         }
 
         .column {
             width: 100%;
             background-color: #f4f5f7;
-            height: 100dvh;
-            max-height: 370px;
             border-radius: 8px;
-            padding: 5px;
+            padding: 10px;
+            min-height: 200px;
         }
 
         .column--title {
@@ -90,10 +87,23 @@
 
         .column--cards {
             padding: 4px;
-            height: 100%;
+            height: 300px;
             max-height: 300px;
             border-radius: 5px;
             background-color: white;
+            overflow-y: auto;   /* permite rolagem */
+            position: relative;
+        }
+
+        .column--cards::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;          /* altura do “meio card” visível */
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+            pointer-events: none;  /* não bloqueia cliques */
         }
 
         .card {
@@ -103,11 +113,16 @@
             border-radius: 5px;
             border: 1px solid #dfe1e6;
             box-shadow: 0 2px 2px #dfe1e6;
-            padding: 12px 14px;
-            font-size: 0.9rem;
+            padding: 16px;            /* mais espaço para dedo no mobile */
+            font-size: 1rem;          /* fonte um pouco maior */
             font-weight: 500;
             color: #4d5c76;
-            margin-bottom: 15px;
+            margin-bottom: 12px;      /* espaço menor entre cards */
+            cursor: grab;             /* mostra que pode arrastar */
+        }
+
+        .card:active {
+            cursor: grabbing;
         }
 
         .column--highlight {
@@ -136,6 +151,27 @@
             border-radius: 5px;
             padding: 5px;
         }
+        /* Tablets e acima (ex: iPads) */
+        @media (min-width: 768px) {
+            .columns {
+                flex-direction: row; /* Colunas lado a lado */
+            }
+            .column {
+                max-width: 50%; /* Duas colunas */
+            }
+        }
+
+        /* Telas grandes (Galaxy S24 Ultra, iPhone Pro Max) */
+        @media (min-width: 1024px) {
+            .columns {
+                flex-direction: row;
+            }
+            .column {
+                max-width: 33%; /* Três colunas se quiser expandir */
+            }
+        }
+
+
     </style>
     <title>DragAndDrop</title>
 </head>
