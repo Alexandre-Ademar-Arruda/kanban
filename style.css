@@ -1,170 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Inter", sans-serif;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: cornflowerblue;
-        }
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: cornflowerblue;
+    min-height: 100vh;
+}
 
-        .main {
-            display: flex;
-            flex-direction: column;
-            max-height: 600px;
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 15px; /* Reduzido para mobile */
+    background-color: #c6a3b1;
+    max-width: 100%; /* Ajusta para ocupar a largura disponível */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 10px;
+}
 
-            padding: 30px;
-            user-select: none;
-            background-color: #c6a3b1;
-            max-width: 600px;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
+header {
+    margin-top: 10px;
+    background-color: red;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
 
-        .header{
-            margin-top: 20px;
-            background-color: red;
-            width: 100%;
-            height: 100%;
-        }
+header > span {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #6b778c;
+    letter-spacing: 0.02rem;
+    background-color: rgb(225, 225, 21);
+}
 
-        header > span {
-            
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #6b778c;
-            letter-spacing: 0.02rem;
-            background-color: rgb(225, 225, 21);
-        }
+header > h1 {
+    color: #182b4d;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 5px;
+}
 
-        header > h1 {
-            color: #182b4d;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-top: 5px;
-        }
+.columns {
+    display: flex;
+    flex-direction: row; /* Duas colunas lado a lado por padrão */
+    flex-wrap: wrap; /* Permite quebra se necessário */
+    gap: 10px; /* Reduzido para melhor uso do espaço */
+    margin-top: 10px;
+    background-color: #c8e6c9;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    justify-content: center;
+}
 
-        .columns {
-            display: flex;
-            flex-direction: column; /* Empilhado no celular */
-            gap: 15px;
-            margin-top: 20px;
-            background-color:#c8e6c9;
-            padding:15px;
-            border-radius: 10px;
-            width: 100%;
-            justify-content: center;
-        }
+.column {
+    flex: 1; /* Cada coluna ocupa espaço igual */
+    min-width: 150px; /* Largura mínima para evitar colunas muito estreitas */
+    max-width: calc(50% - 5px); /* Duas colunas com espaço entre elas */
+    background-color: #f4f5f7;
+    border-radius: 8px;
+    padding: 8px;
+    min-height: 150px; /* Reduzido para mobile */
+}
 
-        .column {
-            width: 100%;
-            background-color: #f4f5f7;
-            border-radius: 8px;
-            padding: 10px;
-            min-height: 200px;
-        }
+.column--title {
+    color: #4d5c76;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin: 10px;
+}
 
-        .column--title {
-            color: #4d5c76;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin: 20px;
-        }
+.column--cards {
+    padding: 4px;
+    height: 200px; /* Reduzido para mobile */
+    max-height: 200px;
+    border-radius: 5px;
+    background-color: white;
+    overflow-y: auto;
+    position: relative;
+}
 
-        .column--cards {
-            padding: 4px;
-            height: 300px;
-            max-height: 300px;
-            border-radius: 5px;
-            background-color: white;
-            overflow-y: auto;   /* permite rolagem */
-            position: relative;
-        }
+.column--cards::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    pointer-events: none;
+}
 
-        .column--cards::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 20px;          /* altura do “meio card” visível */
-            background: linear-gradient(to bottom, rgba(129, 36, 36, 0), rgba(255,255,255,1));
-            pointer-events: none;  /* não bloqueia cliques */
-        }
+.card {
+    width: auto;
+    min-height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #dfe1e6;
+    box-shadow: 0 2px 2px #dfe1e6;
+    padding: 10px; /* Reduzido para mobile */
+    font-size: 0.9rem; /* Fonte menor para mobile */
+    font-weight: 500;
+    color: #4d5c76;
+    margin-bottom: 8px;
+    cursor: grab;
+    touch-action: none; /* Melhora o comportamento de toque */
+}
 
-        .card {
-            display: flex;
-            width: auto;
-            min-height: auto;
-            background-color: #ffffff;
-            border-radius: 5px;
-            border: 1px solid #dfe1e6;
-            box-shadow: 0 2px 2px #dfe1e6;
-            padding: 16px;            /* mais espaço para dedo no mobile */
-            font-size: 1rem;          /* fonte um pouco maior */
-            font-weight: 500;
-            color: #4d5c76;
-            margin-bottom: 5px;      /* espaço menor entre cards */
-            cursor: grab;         /* mostirra que pode arrastar */
-            align-items: center;
-            justify-content: center;
-        }
+.card:active {
+    cursor: grabbing;
+}
 
-        .card:active {
-            cursor: grabbing;
-        }
+.card.dragging {
+    opacity: 0.5;
+    border: 2px dashed #2482ff;
+}
 
-        .column--highlight {
-            background-color: #c3e6c3;
-            border: 2px solid #2482ff;
-        }
+.column--highlight {
+    background-color: #63bb61;
+    border: 2px solid #2482ff;
+}
 
-        .columns .column:nth-child(3) .card {
-            background-color: #c8e6c9; /* verde claro */
-        }
+.columns .column:nth-child(3) .card {
+    background-color: #c8e6c9;
+}
 
-        .columns .column:nth-child(2) .card {
-            background-color: #adb5d8; /* verde claro */
-        }
+.columns .column:nth-child(2) .card {
+    background-color: #adb5d8;
+}
 
-        .columns .column:nth-child(1) .card {
-            background-color: #c6a3b1; /* verde claro */
-        }
+.columns .column:nth-child(1) .card {
+    background-color: #c6a3b1;
+}
 
-        header.teste {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #f4f5f7;
-            border-radius: 5px;
-            padding: 5px;
-        }
-        /* Tablets e acima (ex: iPads) */
-        @media (min-width: 768px) {
-            .columns {
-                flex-direction: row; /* Colunas lado a lado */
-            }
-            .column {
-                max-width: 50%; /* Duas colunas */
-            }
-        }
+header.teste {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f5f7;
+    border-radius: 5px;
+    padding: 5px;
+}
 
-        /* Telas grandes (Galaxy S24 Ultra, iPhone Pro Max) */
-        @media (min-width: 1024px) {
-            .columns {
-                flex-direction: row;
-            }
-            .column {
-                max-width: 33%; /* Três colunas se quiser expandir */
-            }
-        }
+/* Ajustes para tablets */
+@media (min-width: 768px) {
+    .main {
+        max-width: 600px; /* Volta ao tamanho original em tablets */
+        padding: 20px;
+    }
+    .columns {
+        gap: 15px;
+        padding: 15px;
+    }
+    .column {
+        max-width: calc(50% - 7.5px); /* Ajuste fino para tablets */
+        min-height: 200px;
+    }
+    .column--cards {
+        height: 300px;
+        max-height: 300px;
+    }
+}
+
+/* Ajustes para telas grandes */
+@media (min-width: 1024px) {
+    .main {
+        max-width: 800px; /* Maior em telas grandes */
+    }
+    .column {
+        max-width: calc(33.33% - 10px); /* Suporte a três colunas, se necessário */
+    }
+}

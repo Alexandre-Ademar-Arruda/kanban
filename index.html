@@ -61,6 +61,7 @@
 
         .columns {
             display: flex;
+            flex-wrap: wrap;   /* permite quebrar linha */
             flex-direction: column; /* Empilhado no celular */
             gap: 15px;
             margin-top: 20px;
@@ -73,10 +74,11 @@
 
         .column {
             width: 100%;
+            flex: 1 1 45%;     /* cada coluna pega ± 45% da tela */
+            max-width: 48%;    /* garante que caibam duas lado a lado */
             background-color: #f4f5f7;
             border-radius: 8px;
             padding: 10px;
-            min-height: 200px;
         }
 
         .column--title {
@@ -186,13 +188,13 @@
             <section class="column">
                 <h2 class="column--title">col 1</h2>
                 <section class="column--cards">
-                    <section class="card" draggable="true">...</section>
+                    
                 </section>
             </section>
             <section class="column">
                 <h2 class="column--title">col 2</h2>
                 <section class="column--cards" >
-                    <section class="card" draggable="true">...</section>
+                    
                 </section>
             </section>
         </section>
