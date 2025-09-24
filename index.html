@@ -186,71 +186,93 @@
             <section class="column">
                 <h2 class="column--title">col 1</h2>
                 <section class="column--cards">
-                    
+                    <section class="card" draggable="true">...</section>
                 </section>
             </section>
             <section class="column">
                 <h2 class="column--title">col 2</h2>
-                <section class="column--cards">
-                    
+                <section class="column--cards" >
+                    <section class="card" draggable="true">...</section>
                 </section>
             </section>
         </section>
     </main>
     <script>
-        // para este fluxo de eventos drag em drop que veremos, utilizaremos basicamente
-        // dois elementos.
-        // o elemento que sera arrastado - o card
-        // o elemento que recebera o card - a coluna
-        // sendo assim o que vamos fazer primeiro é capturar este dois elementos
-        const columns   = document.querySelectorAll('.column--cards');//mesma situação do card
-        const cards     = document.querySelectorAll('.card');//cards porque será maid de um
-
-        //agora que já capturamos os dois elementos basicos iremos dar inicio aos eventos
-
-        // no fluxo de eventos 'Drag and Drop' existes os 
-        // EVENTOS que sao disparados no elemento que está sendo arrastado
-        // EVENTOS que sao disparados no elemento que pode receber o item
-
-        // EVENTOS que sao disparados no elemento que está sendo arrastado
-        // dragstart -> quando começa a arrastar o elemento - no nosso caso - 'card'
-        // drag -> disparado enquanto o elemtno está sendo arrastado.
-        // dragend -> disparado quando o usuario solta o elemento ou até mesmo quando cancela o arraste -'serve para limpar estilos ou variaveis temporarias.'
-
-        // como precisaremos ter acesso ao dragstart de qualquer lugar vamos colocar esse
-        // elemento numa variavel global
+        const columns   = document.querySelectorAll('.column--cards');
+        const cards      = document.querySelectorAll('.card');
 
         let dragged__card;
 
-        const drag__start = (event) => {
+
+        //para pc
+        const drag__start = (e)=>{
+            dragged__card = e.target;
+            e.dataTransfer.effectAllowed='move';
+        }
+        //para mobile first
+        const touch__start = (event)=>{
             dragged__card = event.target;
-            event.dataTransfer.effectAllowed = "move";
+            
+            const touch = event.touches[0];
+            dragged__card.start__X = touch.clientX;
+            dragged__card.start__Y = touch.clientY;
+
         }
 
-        //aqui vamos aqui vamos percorrer cada COLUNA da coluna column__cards e adicionar um evento a ela no caso sera o de aviação
-        const drag__over = (event) =>{
-            event.preventDefault();
-            event.dataTransfer.dropEffect = "move";
+        //para pc
+        const drag__over = (e)=>{
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
         }
+        //para mobile first 
+        let last__target;
 
-        const drag__enter = ({target}) => {
-            if (target.classList.contains('column--cards')) {
+        const touch__move = (e)=>{
+            e.preventDefault();
+            const touch = e.touches[0];
+            const target = document.elementFromPoint(touch.clientX,touch.clientY);
+
+            //movendo o card com o dedo
+            dragged__card.style.position='absolute';
+            dragged__card.style.left=`${touch.clientX-50}px`;
+            dragged__card.style.top=`${touch.clientY-50}px`;
+
+            //simula o 'dragenter'
+            if(target && target.classList.contains('column--cards')){
+                if(target.classList !== last__target){
+                    if(last__target){
+                        last__target.remove('columnn--higlight');
+                    }
+                }
+                target.classList.add('column--highlight');
+                last__target = target.className('column-highlight');
+            } else {
+                last__target.classList.remove('column-highlight');
+                last__target = null;
+            }
+
+        }
+        //para pc
+        const drag__enter = ({target})=>{
+            if(target.classList.contains('column--cards')){
                 target.classList.add('column--highlight');
             }
-        };
-
-        const drag__leave = ({target}) => {
+        }
+        //para pc
+        const drag__leave = ({target})=>{
             target.classList.remove('column--highlight');
         }
 
+
         const drop = ({target})=>{
-            if (target.classList.contains('column--cards')){
+            if(target.classList.contains('column--cards')){
                 target.classList.remove('column--highlight');
-                target.appendChild(dragged__card);
-            }   
+                target.append(dragged__card);
+            }
         }
 
-        const criar__el = ({target})=>{
+        const criar__elemento = ({target}) =>{
+
             if(!target.classList.contains('column--cards')) return;
 
             const card = document.createElement('section');
@@ -259,34 +281,34 @@
             card.draggable='true';
             card.contentEditable='true';
 
-            card.addEventListener('focusout', () =>{
+            card.addEventListener('focusout',()=>{
                 card.contentEditable='false';
                 if(!card.textContent) card.remove();
             });
 
             card.addEventListener('dragstart',drag__start);
-
-            target.appendChild(card);
-
+            
+            target.append(card);
             card.focus();
-
         }
 
-        // EVENTOS que sao disparados no elemento que pode receber a vitima
-        // Qual cela que vai receber a vitima?
-        // Aqui no js é a cela 'columns' que ja fez uma consulta la no html com a cela 'columns--card
-        columns.forEach((column)=>{//vamos interrogar cada preso na prisao 
-            column.addEventListener('dragover',drag__over);//e vamos usar o artigo drag___over
+        columns.forEach((column)=>{
+            column.addEventListener('dragover',drag__over);
             column.addEventListener('dragenter',drag__enter);
             column.addEventListener('dragleave',drag__leave);
             column.addEventListener('drop',drop);
-            column.addEventListener('dblclick',criar__el);
+            column.addEventListener('dblclick',criar__elemento);
         })
 
-        //aqui vamos aqui vamos percorrer cada CARD da coluna column__cards
-        cards.forEach((card)=> {////apos percorrer cada card vamos
-            card.addEventListener('dragstart',drag__start);//adicionar neles um alarme que 
-        })//sera acionado quando cada vitima começar a ser arrastada
+        //aqui vamos capturar cada card
+        cards.forEach((card)=>{
+            //evento para PC
+            card.addEventListener('dragstart',drag__start);
+            //eventos para mobile first
+            card.addEventListener('touchstart',touch__start);
+            card.addEventListener('touchmove',touch__move);
+            
+        })          
     </script>
 </body>
 </html>

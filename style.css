@@ -1,0 +1,170 @@
+
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: cornflowerblue;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            max-height: 600px;
+
+            padding: 30px;
+            user-select: none;
+            background-color: #c6a3b1;
+            max-width: 600px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .header{
+            margin-top: 20px;
+            background-color: red;
+            width: 100%;
+            height: 100%;
+        }
+
+        header > span {
+            
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #6b778c;
+            letter-spacing: 0.02rem;
+            background-color: rgb(225, 225, 21);
+        }
+
+        header > h1 {
+            color: #182b4d;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .columns {
+            display: flex;
+            flex-direction: column; /* Empilhado no celular */
+            gap: 15px;
+            margin-top: 20px;
+            background-color:#c8e6c9;
+            padding:15px;
+            border-radius: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .column {
+            width: 100%;
+            background-color: #f4f5f7;
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 200px;
+        }
+
+        .column--title {
+            color: #4d5c76;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin: 20px;
+        }
+
+        .column--cards {
+            padding: 4px;
+            height: 300px;
+            max-height: 300px;
+            border-radius: 5px;
+            background-color: white;
+            overflow-y: auto;   /* permite rolagem */
+            position: relative;
+        }
+
+        .column--cards::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;          /* altura do “meio card” visível */
+            background: linear-gradient(to bottom, rgba(129, 36, 36, 0), rgba(255,255,255,1));
+            pointer-events: none;  /* não bloqueia cliques */
+        }
+
+        .card {
+            display: flex;
+            width: auto;
+            min-height: auto;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border: 1px solid #dfe1e6;
+            box-shadow: 0 2px 2px #dfe1e6;
+            padding: 16px;            /* mais espaço para dedo no mobile */
+            font-size: 1rem;          /* fonte um pouco maior */
+            font-weight: 500;
+            color: #4d5c76;
+            margin-bottom: 5px;      /* espaço menor entre cards */
+            cursor: grab;         /* mostirra que pode arrastar */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card:active {
+            cursor: grabbing;
+        }
+
+        .column--highlight {
+            background-color: #c3e6c3;
+            border: 2px solid #2482ff;
+        }
+
+        .columns .column:nth-child(3) .card {
+            background-color: #c8e6c9; /* verde claro */
+        }
+
+        .columns .column:nth-child(2) .card {
+            background-color: #adb5d8; /* verde claro */
+        }
+
+        .columns .column:nth-child(1) .card {
+            background-color: #c6a3b1; /* verde claro */
+        }
+
+        header.teste {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f5f7;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        /* Tablets e acima (ex: iPads) */
+        @media (min-width: 768px) {
+            .columns {
+                flex-direction: row; /* Colunas lado a lado */
+            }
+            .column {
+                max-width: 50%; /* Duas colunas */
+            }
+        }
+
+        /* Telas grandes (Galaxy S24 Ultra, iPhone Pro Max) */
+        @media (min-width: 1024px) {
+            .columns {
+                flex-direction: row;
+            }
+            .column {
+                max-width: 33%; /* Três colunas se quiser expandir */
+            }
+        }
