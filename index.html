@@ -240,7 +240,7 @@
             if(target && target.classList.contains('column--cards')){
                 if(target !== last__target){
                     if(last__target){
-                        last__target.classList.remove('columnn--higlight');//corrigido - adicionado classList apos o 'last__target'
+                        last__target.classList.remove('column--higlight');//corrigido - adicionado classList apos o 'last__target'
                     }
                 }
                 target.classList.add('column--highlight');
@@ -303,7 +303,13 @@
                 if(!card.textContent) card.remove();
             });
 
+            //pc
             card.addEventListener('dragstart',drag__start);
+
+            //mobile first
+            card.addEventListener('touchstart',touch__start);
+            card.addEventListener('touchmove',touch__move);
+            card.addEventListener('touchend',touch__end);
             
             target.append(card);
             card.focus();
