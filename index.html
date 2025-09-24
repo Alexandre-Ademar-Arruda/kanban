@@ -301,6 +301,10 @@
             card.addEventListener('focusout',()=>{
                 card.contentEditable='false';
                 if(!card.textContent) card.remove();
+                if(last__target){
+                    last__target.classList.remove('column--highlight');
+                    last__target=null;
+                }
             });
 
             //pc
