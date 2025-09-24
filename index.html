@@ -204,6 +204,7 @@
         const cards      = document.querySelectorAll('.card');
 
         let dragged__card;
+        let last__target;
 
 
         //para pc
@@ -214,11 +215,9 @@
         //para mobile first
         const touch__start = (event)=>{
             dragged__card = event.target;
-            
             const touch = event.touches[0];
             dragged__card.start__X = touch.clientX;
             dragged__card.start__Y = touch.clientY;
-
         }
 
         //para pc
@@ -227,8 +226,6 @@
             e.dataTransfer.dropEffect = 'move';
         }
         //para mobile first 
-        let last__target;
-
         const touch__move = (e)=>{
             e.preventDefault();
             const touch = e.touches[0];
@@ -241,16 +238,19 @@
 
             //simula o 'dragenter'
             if(target && target.classList.contains('column--cards')){
-                if(target.classList !== last__target){
+                if(target !== last__target){
                     if(last__target){
-                        last__target.remove('columnn--higlight');
+                        last__target.classList.remove('columnn--higlight');//corrigido - adicionado classList apos o 'last__target'
                     }
                 }
                 target.classList.add('column--highlight');
-                last__target = target.className('column-highlight');
+                last__target = target;
             } else {
-                last__target.classList.remove('column-highlight');
-                last__target = null;
+                if(last__target){
+
+                    last__target.classList.remove('column-highlight');
+                    last__target = null;
+                }
             }
 
         }
@@ -273,6 +273,21 @@
             }
         }
 
+        //para mobile first -> simula o drop
+        const touch__end = ()=>{
+            if(last__target&&dragged__card){
+                last__target.append(dragged__card);
+                last__target.classList.remove('column--highlight');
+            }
+            if(dragged__card) {
+                dragged__card.style.position='';
+                dragged__card.style.left='';
+                dragged__card.style.top='';
+            }
+            dragged__card=null;
+            last__target=null;
+
+        }
         const criar__elemento = ({target}) =>{
 
             if(!target.classList.contains('column--cards')) return;
@@ -309,7 +324,7 @@
             //eventos para mobile first
             card.addEventListener('touchstart',touch__start);
             card.addEventListener('touchmove',touch__move);
-            
+            card.addEventListener('touchend',touch__end);
         })          
     </script>
 </body>

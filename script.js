@@ -13,11 +13,9 @@ const drag__start = (e)=>{
 //para mobile first
 const touch__start = (event)=>{
     dragged__card = event.target;
-    
     const touch = event.touches[0];
     dragged__card.start__X = touch.clientX;
     dragged__card.start__Y = touch.clientY;
-
 }
 
 //para pc
